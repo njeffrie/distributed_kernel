@@ -18,14 +18,20 @@ _fiq:
 .fill 1024
 .align 4
 _undefined_exception:
-    ldr     pc, =_start
+    ldr     pc, [pc, #-4]
+.word _start
 _software_interrupt:
-    ldr     pc, =_start
+    ldr     pc, [pc, #-4]
+.word _start
 _prefetch_abort:
-    ldr     pc, =_start
+    ldr     pc, [pc, #-4]
+.word _start
 _data_abort:
-    ldr     pc, =_start
+    ldr     pc, [pc, #-4]
+.word _start
 _not_used:
-    ldr     pc, =_start
+    ldr     pc, [pc, #-4]
+.word _start
 _irq:
-    ldr     pc, =_start
+    ldr     pc, [pc, #-4]
+.word _start
