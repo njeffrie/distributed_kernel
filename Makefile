@@ -14,7 +14,7 @@ ELF = $(patsubst %,$(ODIR)/%,$(_ELF))
 _BIN = kernel.bin
 BIN = $(patsubst %,$(ODIR)/%,$(_BIN))
 
-_ASM_OBJ = boot.o
+_ASM_OBJ = boot.o vector_table.o
 ASM_OBJ = $(patsubst %,$(ODIR)/%,$(_ASM_OBJ))
 
 _C_OBJ = kernel.o

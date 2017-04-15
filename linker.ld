@@ -1,7 +1,11 @@
 ENTRY(_start)
- 
+
 SECTIONS
 {
+    .text.vector :
+    {
+        out/vector_table.o(.text)
+    }
     /* Starts at LOADER_ADDR. */
     . = 0x8000;
     __start = .;
