@@ -1,37 +1,41 @@
-// Linker should place this at memory address 0x0
+// Interrupt vector table will be placed at 0x0
 .section ".text.vector"
 
 .globl _start
 .globl _vector_table
 _vector_table:
     b       _start
-    ldr     pc, _undefined_exception
-    ldr     pc, _software_interrupt
-    ldr     pc, _prefetch_abort
-    ldr     pc, _data_abort
-    ldr     pc, _not_used
-    ldr     pc, _irq
+    ldr     pc, [pc, #0x3f4]
+    ldr     pc, [pc, #0x3f4]
+    ldr     pc, [pc, #0x3f4]
+    ldr     pc, [pc, #0x3f4]
+    ldr     pc, [pc, #0x3f4]
+    ldr     pc, [pc, #0x3f4]
 // Start FIQ handler at FIQ vector
 _fiq:
-    ldr     pc, =_start
-// Allocate 1K for FIQ handler
-.fill 1024
-.align 4
+    b       _start
+// Allocate 1K for vector table and FIQ handler
+.fill 992
+
+// Addresses of exception handler wrappers, will be placed at 0x400
+// (immediately after vector table)
+.section ".data.vector"
+
+.globl _undefined_exception
 _undefined_exception:
-    ldr     pc, [pc, #-4]
 .word _start
+.globl _software_interrupt
 _software_interrupt:
-    ldr     pc, [pc, #-4]
 .word _start
+.globl _prefetch_abort
 _prefetch_abort:
-    ldr     pc, [pc, #-4]
 .word _start
+.globl _data_abort
 _data_abort:
-    ldr     pc, [pc, #-4]
 .word _start
+.globl _not_used
 _not_used:
-    ldr     pc, [pc, #-4]
 .word _start
+.globl _irq
 _irq:
-    ldr     pc, [pc, #-4]
 .word _start

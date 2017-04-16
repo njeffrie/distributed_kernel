@@ -2,9 +2,16 @@ ENTRY(_start)
 
 SECTIONS
 {
+    /* Interrupt vector table starts at 0x0 */
     .text.vector :
     {
         out/vector_table.o(.text)
+    }
+    /* Addresses of handler wrappers aligned to 1K after table start */
+    . = ALIGN(1024);
+    .data.vector :
+    {
+        out/vector_table.o(.data)
     }
     /* Starts at LOADER_ADDR. */
     . = 0x8000;
